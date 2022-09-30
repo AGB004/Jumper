@@ -1,6 +1,6 @@
 from game.terminal_service import TerminalService
-from game.hider import Hider
-from game.seeker import Seeker
+from game.jumper import Jumper #Hider
+from game.puzzle import Puzzle #Seeker
 
 
 class Director:
@@ -21,9 +21,9 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
-        self._hider = Hider()
+        self._jumper = Jumper()
         self._is_playing = True
-        self._seeker = Seeker()
+        self._puzzle = Puzzle()
         self._terminal_service = TerminalService()
         
     def start_game(self):
@@ -43,8 +43,8 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        new_location = self._terminal_service.read_number("\nEnter a location [1-1000]: ")
-        self._seeker.move_location(new_location)
+        guess_letter = self._terminal_service.read_number("\nEnter a location [1-1000]: ")
+        self._puzzle.process_guess(guess_letter)
         
     def _do_updates(self):
         """Keeps watch on where the seeker is moving.
